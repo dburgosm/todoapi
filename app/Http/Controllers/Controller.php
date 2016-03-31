@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class Controller extends BaseController
 {
 
-    public function sendResponse($data, $code){
+    public function sendResponse(Request $request, $data, $code){
     	$message = '';
     	$success = true;
 
@@ -37,11 +37,11 @@ class Controller extends BaseController
     	}   	
 
     	return response()->json([ 
-    		'success' => $success,
-    		'code' => $code,
-    		'message' => $message,
-    		'data' => $data
-    	], $code);
+    		'success' => 'true',
+    	    'code' => $code,
+    	    'message' => $message,
+    	    'data' => $data
+    	], $code)->setCallback($request->input('callback'));;
     }
 
     protected function buildFailedValidationResponse(Request $request, array $errors)

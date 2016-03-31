@@ -11,12 +11,8 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->group(['middleware' => 'cors', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+    $app->get('/project', 'ProjectController@index');
+    $app->post('/project', 'ProjectController@store');
+    $app->post('/project/{id}/task', 'ProjectController@addTask');
 });
-
-$app->get('/user', 'UserController@index');
-$app->get('/user/{id}', 'UserController@show');
-$app->post('/user', 'UserController@store');
-$app->put('/user/{id}', 'UserController@update');
-$app->delete('/user/{id}', 'UserController@destroy');
